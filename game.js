@@ -40,12 +40,11 @@ class Player {
         // Move player forward
         this.x += this.velocityX;
 
-        // Keep player centered on screen
-        // If player goes past center, shift them back and return the offset
+        // Keep player from going too far right, shift world back
         let worldShift = 0;
-        if (this.x > 150) {
-            worldShift = this.x - 150;
-            this.x = 150;
+        if (this.x > 300) {
+            worldShift = this.x - 300;
+            this.x = 300;
         }
 
         // Apply gravity
