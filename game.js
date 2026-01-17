@@ -19,10 +19,10 @@ class Player {
         this.height = 30;
         this.x = 100;
         this.y = canvas.height - 150;
-        this.velocityX = 3;  // Player moves forward constantly
+        this.velocityX = 4;  // Player moves forward constantly
         this.velocityY = 0;
-        this.gravity = 0.35;
-        this.jumpPower = -9;
+        this.gravity = 0.25;
+        this.jumpPower = -12;
         this.isJumping = false;
         this.groundLevel = canvas.height - 150;
         this.rotation = 0;
@@ -59,7 +59,7 @@ class Player {
             this.rotation = 0;
         } else {
             // Rotate while in air
-            this.rotation += 2;
+            this.rotation += 1.5;
         }
 
         // Prevent going above canvas
@@ -115,7 +115,8 @@ class Obstacle {
     }
 
     update() {
-        this.x -= gameSpeed;
+        // Obstacles are stationary in the world
+        // They only move via worldShift when player advances
     }
 
     draw() {
@@ -252,9 +253,7 @@ function drawGround() {
         ctx.fillStyle = '#2F855A';
         ctx.fillRect(segment.x, segment.y, 35, 5);
 
-        // Move segments
-        segment.x -= gameSpeed * 0.5;
-        // Shift back to keep player centered
+        // Ground moves only via worldShift as player advances
         segment.x -= worldShift;
         if (segment.x + 35 < 0) {
             segment.x = canvas.width;
@@ -335,13 +334,8 @@ function update() {
     });
 
     // Spawn new obstacles
-    if (frameCount % 200 === 0) {
+    if (frameCount % 180 === 0) {
         spawnObstacle();
-    }
-
-    // Increase difficulty
-    if (frameCount % 1500 === 0 && gameSpeed < 1.2) {
-        gameSpeed += 0.05;
     }
 }
 
@@ -394,7 +388,6 @@ function gameOver() {
 function startGame() {
     gameState = 'playing';
     score = 0;
-    gameSpeed = 0.4;
     frameCount = 0;
     worldShift = 0;
     obstacles.length = 0;
