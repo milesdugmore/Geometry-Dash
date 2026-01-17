@@ -40,11 +40,11 @@ class Player {
         // Move player forward
         this.x += this.velocityX;
 
-        // Keep player in left portion of screen, shift world back
+        // Keep player on left side of screen, shift world back
         let worldShift = 0;
-        if (this.x > 200) {
-            worldShift = this.x - 200;
-            this.x = 200;
+        if (this.x > 120) {
+            worldShift = this.x - 120;
+            this.x = 120;
         }
 
         // Apply gravity
