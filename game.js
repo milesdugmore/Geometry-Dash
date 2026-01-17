@@ -19,10 +19,10 @@ class Player {
         this.height = 30;
         this.x = 100;
         this.y = canvas.height - 150;
-        this.velocityX = 4;  // Player moves forward constantly
+        this.velocityX = 3;  // Player moves forward constantly
         this.velocityY = 0;
-        this.gravity = 0.25;
-        this.jumpPower = -12;
+        this.gravity = 0.15;
+        this.jumpPower = -10;
         this.isJumping = false;
         this.groundLevel = canvas.height - 150;
         this.rotation = 0;
@@ -40,11 +40,11 @@ class Player {
         // Move player forward
         this.x += this.velocityX;
 
-        // Keep player from going too far right, shift world back
+        // Keep player from going off screen, shift world back
         let worldShift = 0;
-        if (this.x > 300) {
-            worldShift = this.x - 300;
-            this.x = 300;
+        if (this.x > 600) {
+            worldShift = this.x - 600;
+            this.x = 600;
         }
 
         // Apply gravity
@@ -59,7 +59,7 @@ class Player {
             this.rotation = 0;
         } else {
             // Rotate while in air
-            this.rotation += 1.5;
+            this.rotation += 1;
         }
 
         // Prevent going above canvas
