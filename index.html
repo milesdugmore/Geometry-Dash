@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geometry Dash</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="game-header">
+            <h1>GEOMETRY DASH</h1>
+            <div class="score-display">
+                <span>Score: <span id="score">0</span></span>
+                <span>Best: <span id="best-score">0</span></span>
+            </div>
+        </div>
+        <canvas id="gameCanvas"></canvas>
+        <div id="game-over" class="game-over hidden">
+            <h2>GAME OVER</h2>
+            <p>Score: <span id="final-score">0</span></p>
+            <button id="restart-btn">RESTART</button>
+        </div>
+        <div id="start-screen" class="start-screen">
+            <h2>GEOMETRY DASH</h2>
+            <p>Press SPACE or Click to Jump</p>
+            <button id="start-btn">START GAME</button>
+        </div>
+        <div class="controls">
+            <p>Controls: SPACE or CLICK to jump</p>
+        </div>
+    </div>
+    <script src="game.js"></script>
+</body>
+</html>
