@@ -10,6 +10,7 @@ let score = 0;
 let bestScore = localStorage.getItem('bestScore') || 0;
 let gameSpeed = 0.4;
 let frameCount = 0;
+let worldShift = 0;
 
 // Player class
 class Player {
@@ -18,6 +19,7 @@ class Player {
         this.height = 30;
         this.x = 100;
         this.y = canvas.height - 150;
+        this.velocityX = 3;  // Player moves forward constantly
         this.velocityY = 0;
         this.gravity = 0.35;
         this.jumpPower = -9;
@@ -35,6 +37,17 @@ class Player {
     }
 
     update() {
+        // Move player forward
+        this.x += this.velocityX;
+
+        // Keep player centered on screen
+        // If player goes past center, shift them back and return the offset
+        let worldShift = 0;
+        if (this.x > 150) {
+            worldShift = this.x - 150;
+            this.x = 150;
+        }
+
         // Apply gravity
         this.velocityY += this.gravity;
         this.y += this.velocityY;
@@ -55,6 +68,8 @@ class Player {
             this.y = 0;
             this.velocityY = 0;
         }
+
+        return worldShift;
     }
 
     draw() {
@@ -240,6 +255,8 @@ function drawGround() {
 
         // Move segments
         segment.x -= gameSpeed * 0.5;
+        // Shift back to keep player centered
+        segment.x -= worldShift;
         if (segment.x + 35 < 0) {
             segment.x = canvas.width;
         }
@@ -280,11 +297,14 @@ function update() {
     if (gameState !== 'playing') return;
 
     frameCount++;
-    player.update();
+    worldShift = player.update();
 
     // Update obstacles
     obstacles.forEach((obstacle, index) => {
         obstacle.update();
+
+        // Shift obstacle back to keep player centered
+        obstacle.x -= worldShift;
 
         // Check collision
         if (checkCollision(player.getBounds(), obstacle.getBounds())) {
@@ -308,6 +328,8 @@ function update() {
     // Update particles
     particles.forEach((particle, index) => {
         particle.update();
+        // Shift back to keep with world
+        particle.x -= worldShift;
         if (particle.isDead()) {
             particles.splice(index, 1);
         }
@@ -375,8 +397,10 @@ function startGame() {
     score = 0;
     gameSpeed = 0.4;
     frameCount = 0;
+    worldShift = 0;
     obstacles.length = 0;
     particles.length = 0;
+    player.x = 100;
     player.y = player.groundLevel;
     player.velocityY = 0;
     player.isJumping = false;
