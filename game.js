@@ -8,7 +8,7 @@ canvas.height = 400;
 let gameState = 'start'; // start, playing, gameover
 let score = 0;
 let bestScore = localStorage.getItem('bestScore') || 0;
-let gameSpeed = 3;
+let gameSpeed = 2;
 let frameCount = 0;
 
 // Player class
@@ -314,13 +314,13 @@ function update() {
     });
 
     // Spawn new obstacles
-    if (frameCount % 120 === 0) {
+    if (frameCount % 150 === 0) {
         spawnObstacle();
     }
 
     // Increase difficulty
-    if (frameCount % 500 === 0 && gameSpeed < 7) {
-        gameSpeed += 0.2;
+    if (frameCount % 600 === 0 && gameSpeed < 5) {
+        gameSpeed += 0.15;
     }
 }
 
@@ -373,7 +373,7 @@ function gameOver() {
 function startGame() {
     gameState = 'playing';
     score = 0;
-    gameSpeed = 3;
+    gameSpeed = 2;
     frameCount = 0;
     obstacles.length = 0;
     particles.length = 0;

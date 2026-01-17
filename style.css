@@ -110,6 +110,13 @@ button:active {
     color: rgba(255, 255, 255, 0.8);
 }
 
+.version {
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: rgba(255, 255, 255, 0.5);
+    font-style: italic;
+}
+
 @keyframes pulse {
     0%, 100% { transform: scale(1); }
     50% { transform: scale(1.05); }
