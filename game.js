@@ -8,7 +8,7 @@ canvas.height = 400;
 let gameState = 'start'; // start, playing, gameover
 let score = 0;
 let bestScore = localStorage.getItem('bestScore') || 0;
-let gameSpeed = 1.5;
+let gameSpeed = 2.8;
 let frameCount = 0;
 
 // Player class
@@ -19,8 +19,8 @@ class Player {
         this.x = 100;
         this.y = canvas.height - 150;
         this.velocityY = 0;
-        this.gravity = 0.5;
-        this.jumpPower = -11;
+        this.gravity = 0.6;
+        this.jumpPower = -9.5;
         this.isJumping = false;
         this.groundLevel = canvas.height - 150;
         this.rotation = 0;
@@ -47,7 +47,7 @@ class Player {
             this.rotation = 0;
         } else {
             // Rotate while in air
-            this.rotation += 4;
+            this.rotation += 5.5;
         }
 
         // Prevent going above canvas
@@ -314,13 +314,13 @@ function update() {
     });
 
     // Spawn new obstacles
-    if (frameCount % 180 === 0) {
+    if (frameCount % 140 === 0) {
         spawnObstacle();
     }
 
     // Increase difficulty
-    if (frameCount % 700 === 0 && gameSpeed < 4) {
-        gameSpeed += 0.1;
+    if (frameCount % 800 === 0 && gameSpeed < 5.5) {
+        gameSpeed += 0.15;
     }
 }
 
@@ -373,7 +373,7 @@ function gameOver() {
 function startGame() {
     gameState = 'playing';
     score = 0;
-    gameSpeed = 1.5;
+    gameSpeed = 2.8;
     frameCount = 0;
     obstacles.length = 0;
     particles.length = 0;
